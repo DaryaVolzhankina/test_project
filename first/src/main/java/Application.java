@@ -1,8 +1,5 @@
 import exceptions.*;
-import objects.ATM;
-import objects.Card;
-import objects.Cash;
-import objects.CreditCard;
+import objects.*;
 import objects.enums.Banks;
 import objects.enums.Currencies;
 
@@ -11,7 +8,7 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) {
         ATM atm = new ATM(Banks.SBER, Currencies.RUB, 15000);
-        Card card = new CreditCard(Banks.SBER, "1111222233334444", "1234", Currencies.RUB, 10000,10000,10001);
+        Card card = new CreditCard("MyCard", Banks.SBER, "1111222233334444", "1234", Currencies.RUB, 10000, 10000, 10001, 1.1f);
         Cash cash = new Cash(1000, Currencies.RUB);
 
         boolean continueApp1 = true;
@@ -44,9 +41,9 @@ public class Application {
 
             while (continueApp2) {
                 boolean isCreditCard = card instanceof CreditCard;
-                if(isCreditCard){
+                if (isCreditCard) {
                     System.out.println("1 - withdraw, 2 - put, 3 - check money amount, 4 - exit, 5 - check credit limit");
-                }else{
+                } else {
                     System.out.println("1 - withdraw, 2 - put, 3 - check money amount, 4 - exit");
                 }
                 int choice = s.nextInt();
@@ -56,7 +53,7 @@ public class Application {
                         try {
                             atm.withdrawMoney(card, sum);
                             atm.reduceLimit(sum);
-                        }catch (MoneyAmountException ex){
+                        } catch (MoneyAmountException ex) {
                             ex.printStackTrace();
                         }
                         break;
@@ -64,7 +61,7 @@ public class Application {
                         try {
                             atm.putMoney(card, cash);
                             atm.increaseLimit(cash.getSum());
-                        }catch (MoneyAmountException | WrongCurrencyException ex){
+                        } catch (MoneyAmountException | WrongCurrencyException ex) {
                             ex.printStackTrace();
                         }
                         break;

@@ -17,10 +17,14 @@ public class CreditCard extends Card {
     @Getter
     private final int maxCreditLimit;
 
-    public CreditCard(Banks bank, String cardNumber, String pinCode, Currencies currency, int moneyAmount, int creditLimit, int maxCreditLimit) throws MoneyAmountException {
-        super(bank, cardNumber, pinCode, currency, moneyAmount);
+    @Getter
+    private final float interestRate;
+
+    public CreditCard(String title,Banks bank, String cardNumber, String pinCode, Currencies currency, int moneyAmount, int creditLimit, int maxCreditLimit,float interestRate) throws MoneyAmountException {
+        super(title, bank, pinCode, currency, moneyAmount, cardNumber);
         this.creditLimit = creditLimit;
         this.maxCreditLimit = maxCreditLimit;
+        this.interestRate = interestRate;
 
         if (maxCreditLimit < creditLimit) {
             throw new MoneyAmountException("Credit limit cannot be greater than the maximum value");

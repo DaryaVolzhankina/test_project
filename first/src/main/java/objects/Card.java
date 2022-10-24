@@ -18,14 +18,16 @@ public abstract class Card {
     private final Banks bank;
     private final String cardNumber;
     private final String pinCode;
+    private final String title;
     private int moneyAmount;
 
-    public Card(@NonNull Banks bank, @NonNull String cardNumber, @NonNull String pinCode, @NonNull Currencies currency, int moneyAmount) {
+    public Card(@NonNull String title, @NonNull Banks bank, @NonNull String pinCode, @NonNull Currencies currency, int moneyAmount, @NonNull String cardNumber) {
         this.currency = currency;
         this.bank = bank;
         this.moneyAmount = moneyAmount;
         this.cardNumber = cardNumber;
         this.pinCode = pinCode;
+        this.title = title;
 
         String regex = "^\\d{4}$";
 
@@ -35,10 +37,12 @@ public abstract class Card {
     }
 
     public abstract Cash withdrawMoney(int sum);
+
     public abstract int putMoney(Cash cash);
-    public int checkMoneyAmount(){
+
+    public int checkMoneyAmount() {
         int moneyAmount = this.getMoneyAmount();
         log.info("checkMoneyAmount return " + moneyAmount);
         return moneyAmount;
-    };
+    }
 }

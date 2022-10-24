@@ -8,8 +8,8 @@ import objects.enums.Currencies;
 @Slf4j
 public class DebitCard extends Card {
 
-    public DebitCard(Banks bank, String cardNumber, String pinCode, Currencies currency, int moneyAmount) {
-        super(bank, cardNumber, pinCode, currency, moneyAmount);
+    public DebitCard(String title, Banks bank, String cardNumber, String pinCode, Currencies currency, int moneyAmount) {
+        super(title, bank, pinCode, currency, moneyAmount, cardNumber);
     }
 
     @Override
