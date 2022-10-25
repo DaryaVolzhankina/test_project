@@ -12,24 +12,51 @@ import objects.enums.Currencies;
 
 import java.util.regex.Pattern;
 
+/**
+ * Class with ATM variables and methods
+ */
 @Data
 @Slf4j
 public class ATM {
+
+    /**
+     * currency
+     */
     private final Currencies currency;
+
+    /**
+     * bank
+     */
     private final Banks bank;
+
+    /**
+     * the amount of money in the ATM
+     */
     private int limit;
 
-
+    /**
+     * Constructor for creating an instance of the class
+     *
+     * @param bank     - which bank cards are accepted
+     * @param currency - ATM currency
+     * @param limit    - the amount of money in the ATM
+     */
     public ATM(@NonNull Banks bank, @NonNull Currencies currency, int limit) {
         this.currency = currency;
         this.bank = bank;
         this.limit = limit;
 
-        if(limit < 0){
+        if (limit < 0) {
             throw new MoneyAmountException("the ATM limit cannot be less than zero");
         }
     }
 
+    /**
+     * Method for bank verification
+     *
+     * @param card - карта
+     * @return is the card bank correct
+     */
     public boolean checkBank(Card card) throws WrongBankException {
         if (bank.equals(card.getBank())) {
             log.info("check bank was successful");
@@ -40,7 +67,14 @@ public class ATM {
         }
     }
 
-    public boolean checkPinCode(Card card, @NonNull String pin) throws WrongPinCodeException{
+    /**
+     * Method for PIN code verification
+     *
+     * @param card - card
+     * @param pin  - pin code
+     * @return is the pin code correct
+     */
+    public boolean checkPinCode(Card card, @NonNull String pin) throws WrongPinCodeException {
         String regex = "^\\d{4}$";
 
         if (!Pattern.matches(regex, pin) || !card.getPinCode().equals(pin)) {
@@ -51,6 +85,12 @@ public class ATM {
         return card.getPinCode().equals(pin);
     }
 
+    /**
+     * Method for currency verification
+     *
+     * @param card - card
+     * @return is the currency correct
+     */
     public boolean checkCurrency(Card card) throws WrongCurrencyException {
         if (currency.equals(card.getCurrency())) {
             log.info("check currency was successful");
@@ -61,6 +101,12 @@ public class ATM {
         }
     }
 
+    /**
+     * method for reducing the amount of money in an ATM
+     *
+     * @param sum - withdrawn amount
+     * @return the amount of money in the ATM
+     */
     public int reduceLimit(int sum) {
         int currentLimit = this.getLimit() - sum;
         this.setLimit(currentLimit);
@@ -68,6 +114,12 @@ public class ATM {
         return currentLimit;
     }
 
+    /**
+     * method for increasing the amount of money in an ATM
+     *
+     * @param sum - amount deposited
+     * @return the amount of money in the ATM
+     */
     public int increaseLimit(int sum) {
         int currentLimit = this.getLimit() + sum;
         this.setLimit(currentLimit);
@@ -75,7 +127,14 @@ public class ATM {
         return currentLimit;
     }
 
-    public Cash withdrawMoney(Card card, int sum) throws MoneyAmountException{
+    /**
+     * method of withdrawing money from the card
+     *
+     * @param sum  - withdrawn amount
+     * @param card - card
+     * @return cash
+     */
+    public Cash withdrawMoney(Card card, int sum) throws MoneyAmountException {
         if (sum <= 0) {
             log.warn("the values cannot be equal to zero or less than zero");
             throw new MoneyAmountException("the values cannot be equal to zero or less than zero");
@@ -86,7 +145,14 @@ public class ATM {
         return card.withdrawMoney(sum);
     }
 
-    public int putMoney(Card card, Cash cash) throws WrongCurrencyException, MoneyAmountException{
+    /**
+     * method of depositing money on the card
+     *
+     * @param cash - amount deposited
+     * @param card - card
+     * @return the amount of money in the card
+     */
+    public int putMoney(Card card, Cash cash) throws WrongCurrencyException, MoneyAmountException {
         if (!this.getCurrency().equals(cash.getCurrency())) {
             log.warn("The objects.ATM only issues " + this.getCurrency());
             throw new WrongCurrencyException("the ATM does not accept this currency");
@@ -97,11 +163,24 @@ public class ATM {
         return card.putMoney(cash);
     }
 
-    public int checkMoneyAmount(Card card){
+    /**
+     * method of checking money on the card
+     *
+     * @param card - card
+     * @return the amount of money in the card
+     */
+    public int checkMoneyAmount(Card card) {
         return card.checkMoneyAmount();
     }
-    public int checkCreditLimit(CreditCard card){
-       return card.checkCreditLimit();
+
+    /**
+     * credit limit verification method
+     *
+     * @param card - card
+     * @return creditLimit
+     */
+    public int checkCreditLimit(CreditCard card) {
+        return card.checkCreditLimit();
     }
 }
 

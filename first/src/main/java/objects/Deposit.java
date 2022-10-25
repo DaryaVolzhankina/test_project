@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import objects.enums.Currencies;
 
 /**
- * Класс с методами и переменными вклада
+ * Class with deposit methods and variables
  */
 @Data
 @Slf4j
@@ -18,6 +18,14 @@ public class Deposit {
     private final DebitCard card;
     private int moneyAmount;
 
+    /**
+     * Constructor for creating an instance of the class
+     *
+     * @param currency    - deposit currency
+     * @param title       - name of the deposit
+     * @param moneyAmount - amount of money in the deposit
+     * @param card - the card to which the deposit is linked
+     */
     public Deposit(@NonNull String title, int moneyAmount, @NonNull Currencies currency, @NonNull DebitCard card) {
         this.currency = currency;
         this.title = title;
@@ -30,9 +38,9 @@ public class Deposit {
     }
 
     /**
-     * Метод проверки баланса вклада
+     * Method of checking the deposit balance
      *
-     * @return количество денег на вкладе
+     * @return amount of money in the deposit
      */
     public int checkMoneyAmount() {
         int moneyAmount = this.getMoneyAmount();
@@ -41,9 +49,9 @@ public class Deposit {
     }
 
     /**
-     * Метод пополнения вклада с карты
+     * deposit replenishment method
      *
-     * @return количество денег на вкладе
+     * @return amount of money in the deposit
      */
     public int topUpDepositFromCard(int sum) throws MoneyAmountException {
         if (card.getMoneyAmount() <= 0 || sum <= 0 || card.getMoneyAmount() < sum) {

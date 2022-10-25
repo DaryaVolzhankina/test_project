@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import objects.enums.Banks;
 import objects.enums.Currencies;
 
+/**
+ * Class with credit card methods and variables
+ */
 @Slf4j
 public class CreditCard extends Card {
 
@@ -20,6 +23,20 @@ public class CreditCard extends Card {
     @Getter
     private final float interestRate;
 
+    /**
+     * Constructor for creating an instance of the class
+     *
+     * @param bank        - which bank serves the card
+     * @param currency    - card currency
+     * @param title       - name of the card
+     * @param pinCode     - pin code
+     * @param moneyAmount - amount of money in the account
+     * @param creditLimit  - card number
+     * @param cardNumber  - card number
+     * @param creditLimit  - credit limit
+     * @param maxCreditLimit  - max credit limit
+     * @param interestRate  - interest rate
+     */
     public CreditCard(String title,Banks bank, String cardNumber, String pinCode, Currencies currency, int moneyAmount, int creditLimit, int maxCreditLimit,float interestRate) throws MoneyAmountException {
         super(title, bank, pinCode, currency, moneyAmount, cardNumber);
         this.creditLimit = creditLimit;
@@ -31,6 +48,12 @@ public class CreditCard extends Card {
         }
     }
 
+    /**
+     * method of withdrawing money from the card
+     *
+     * @param sum - withdrawn amount
+     * @return cash
+     */
     @Override
     public Cash withdrawMoney(int sum) throws MoneyAmountException {
 
@@ -50,6 +73,12 @@ public class CreditCard extends Card {
         }
     }
 
+    /**
+     * method of depositing money on the card
+     *
+     * @param cash - amount deposited
+     * @return the amount of money in the card
+     */
     @Override
     public int putMoney(Cash cash) throws MoneyAmountException {
         if (this.maxCreditLimit > this.creditLimit) {
@@ -68,9 +97,25 @@ public class CreditCard extends Card {
         return this.getMoneyAmount();
     }
 
+    /**
+     * credit limit verification method
+     *
+     * @return creditLimit
+     */
     public int checkCreditLimit() {
         int creditLimit = this.getCreditLimit();
         log.info("checkCreditLimit return " + creditLimit);
         return creditLimit;
+    }
+
+    /**
+     * the method of checking the debt on the loan
+     *
+     * @return loan debt
+     */
+    public int checkLoanDebt() {
+        int loanDebt = this.maxCreditLimit - this.creditLimit;
+        log.info("checkCreditLimit return " + loanDebt);
+        return loanDebt;
     }
 }
