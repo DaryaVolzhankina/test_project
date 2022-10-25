@@ -11,6 +11,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для методов класса Deposit
+ */
 @Epic("Методы вкладов")
 @Feature("Методы класса Deposit")
 public class DepositsTests {

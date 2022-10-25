@@ -12,6 +12,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для метода withdrawMoney
+ */
 @Epic("Методы банкомата")
 @Feature("Снять деньги с карты")
 public class WithdrawMoneyTests {

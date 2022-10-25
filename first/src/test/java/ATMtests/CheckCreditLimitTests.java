@@ -10,6 +10,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для checkCreditLimit
+ */
 @Epic("Методы банкомата")
 @Feature("Просмотр кредитного лимита")
 public class CheckCreditLimitTests {

@@ -13,6 +13,9 @@ import static objects.enums.Banks.SBER;
 import static objects.enums.Banks.TINKOFF;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для метода checkMoneyAmount
+ */
 @Epic("Методы банкомата")
 @Feature("Просмотр суммы денег на счете")
 public class CheckMoneyAmountTests {

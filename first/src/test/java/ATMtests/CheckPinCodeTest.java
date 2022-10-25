@@ -11,6 +11,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для метода checkPinCode
+ */
 @Epic("Методы банкомата")
 @Feature("Проверка пин-кода")
 public class CheckPinCodeTest {

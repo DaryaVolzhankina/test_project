@@ -13,6 +13,9 @@ import static objects.enums.Banks.TINKOFF;
 import static objects.enums.Currencies.RUB;
 import static objects.enums.Currencies.USD;
 
+/**
+ * Тест сьют для метода checkCurrency
+ */
 @Epic("Методы банкомата")
 @Feature("Проверка валюты")
 public class CheckCurrencyTests {

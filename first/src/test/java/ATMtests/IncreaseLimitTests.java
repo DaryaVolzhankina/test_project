@@ -9,6 +9,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для метода increaseLimit
+ */
 @Epic("Методы банкомата")
 @Feature("Увеличение лимита банкомата")
 public class IncreaseLimitTests {

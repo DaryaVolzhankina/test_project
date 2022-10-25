@@ -13,6 +13,9 @@ import java.util.Map;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.*;
 
+/**
+ * Тест сьют для методов класса ListOfDeposits
+ */
 @Epic("Методы вкладов")
 @Feature("Методы класса ListOfDeposits")
 public class ListOfDepositsTests {

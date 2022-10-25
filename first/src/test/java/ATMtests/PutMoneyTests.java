@@ -13,6 +13,9 @@ import org.testng.annotations.Test;
 import static objects.enums.Banks.SBER;
 import static objects.enums.Currencies.*;
 
+/**
+ * Тест сьют для метода putMoney
+ */
 @Epic("Методы банкомата")
 @Feature("Добавление денег на счет")
 public class PutMoneyTests {

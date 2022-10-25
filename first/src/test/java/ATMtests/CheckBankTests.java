@@ -12,6 +12,9 @@ import static objects.enums.Banks.SBER;
 import static objects.enums.Banks.TINKOFF;
 import static objects.enums.Currencies.RUB;
 
+/**
+ * Тест сьют для метода checkBank
+ */
 @Epic("Методы банкомата")
 @Feature("Проверка банкомата")
 public class CheckBankTests {
