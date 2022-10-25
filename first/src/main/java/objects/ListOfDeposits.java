@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import objects.enums.Currencies;
 import java.util.Map;
 
+/**
+ * Класс для списка депозитов
+ */
 @Slf4j
 public class ListOfDeposits {
     private Map<String, Deposit> deposits;
@@ -21,6 +24,11 @@ public class ListOfDeposits {
         deposits.put(title, new Deposit(title, moneyAmount, currency,card));
     }
 
+    /**
+     * Метод закрытия вклада
+     *
+     * @return количество денег на карте, к которой был привязан вклад
+     */
     public int deleteDeposit(String key){
         DebitCard card = this.getDeposits().get(key).getCard();
         card.setMoneyAmount(card.getMoneyAmount() + this.getDeposits().get(key).getMoneyAmount());
