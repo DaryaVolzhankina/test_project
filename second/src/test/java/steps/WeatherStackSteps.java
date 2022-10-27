@@ -24,8 +24,19 @@ import static utils.Helpers.*;
 
 public class WeatherStackSteps {
 
+    /**
+     * Экземпляр интерфейса с конфигурацией
+     */
     private final BaseConfig config = ConfigFactory.create(BaseConfig.class, System.getenv());
+
+    /**
+     * Экземпляр класса с оболочкой ответа
+     */
     private Response response;
+
+    /**
+     * Экземпляр класса RequestSpecification
+     */
     private RequestSpecification requestSpecification;
 
     @ParameterType(".*")
@@ -42,13 +53,24 @@ public class WeatherStackSteps {
                 .accept("*/*");
     }
 
-    @When("Get call a current {string}")
-    public void getCallACurrentAccessKeyAndQuery(String query) throws URISyntaxException {
+    @When("Send a request to the endpoint \"current\" with parameters {string}")
+    public void sendRequestToEndpointCurrentWithQueryParameter(String query) throws URISyntaxException {
         response = requestSpecification.when().get(new URI("current?access_key=" + config.accessKey() + "&query=" + query));
     }
 
-    @Then("Body is {string},{string},{string},{string}")
-    public void answerIsResponseBody(String language, String name, String country, String utcOffset) throws ParseException {
+    @When("Send a request to the endpoint \"current\" with parameters {string} and {string}")
+    public void sendRequestToEndpointCurrentWithQueryUnitParameters(String query, String unit) throws URISyntaxException {
+        response = requestSpecification.when().get(new URI("current?access_key=" + config.accessKey() + "&query=" + query + "&units=" + unit));
+    }
+
+    @When("Send a request to the endpoint \"current\" with parameters {string}, {string} and {string}")
+    public void sendRequestToEndpointCurrentWithAccessQueryUnitParameters(String accessKey, String query, String unit) throws URISyntaxException {
+        response = requestSpecification.when().get(new URI("current?access_key=" + accessKey + "&query=" + query + "&units=" + unit));
+    }
+
+
+    @Then("Verify parameters {string},{string},{string},{string}")
+    public void verifyParameters(String language, String name, String country, String utcOffset) throws ParseException {
 
         response = response.then().statusCode(200).extract().response();
 
@@ -68,21 +90,21 @@ public class WeatherStackSteps {
         Date localtime = dateFormat.parse(location.getString("localtime"));
 
         //Проверяем ответ API с ожидаемыми
-        Assert.assertEquals(request.getString("type"), "City", "Тип не соответствует ожидаемому");
-        Assert.assertEquals(request.getString("language"), language, "Тип не соответствует ожидаемому");
+        Assert.assertEquals(request.getString("type"), "City");
+        Assert.assertEquals(request.getString("language"), language);
 
-        Assert.assertEquals(location.getString("name"), name, "Название города не соответствует ожидаемому");
-        Assert.assertEquals(location.getString("country"), country, "Название города не соответствует ожидаемому");
-        Assert.assertEquals(location.getString("utc_offset"), utcOffset, "Название города не соответствует ожидаемому");
-        Assert.assertEquals(dateFormat.format(localtime), dateFormat.format(timePoint), "Дата не соответствует ожидаемой");
+        Assert.assertEquals(location.getString("name"), name);
+        Assert.assertEquals(location.getString("country"), country);
+        Assert.assertEquals(location.getString("utc_offset"), utcOffset);
+        Assert.assertEquals(dateFormat.format(localtime), dateFormat.format(timePoint));
 
         checkIntParams(10, 30, current.getInt("temperature"), "Temperature");
         checkArray(weatherIcons, "weather_icons");
         checkIsDay(current.getString("is_day"));
     }
 
-    @Then("Body is {code},{string},{string}")
-    public void bodyIs(Codes code, String type, String info) {
+    @Then("Check error response body {code},{string},{string}")
+    public void checkErrorResponseBodyParameters(Codes code, String type, String info) {
         response = response.then().statusCode(200).extract().response();
 
         //Парсим ответ API в json

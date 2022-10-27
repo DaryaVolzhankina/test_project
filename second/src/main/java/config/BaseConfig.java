@@ -14,5 +14,11 @@ public interface BaseConfig extends Config{
      * @return базовый URL
      */
     String baseUrl();
+
+    /**
+     * Метод для возвращения параметра accessKey из config.properties
+     *
+     * @return ключ доступа
+     */
     String accessKey();
 }
