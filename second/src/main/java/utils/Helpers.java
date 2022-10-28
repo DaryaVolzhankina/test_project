@@ -35,7 +35,7 @@ public class Helpers {
     public static boolean checkArray(JSONArray arr, String check) {
         if (arr.length() != 0) {
             return true;
-        }else{
+        } else {
             log.warn(check + " array is empty");
             return false;
         }
